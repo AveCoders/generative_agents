@@ -6,17 +6,17 @@
 <img src="cover.png" alt="Smallville" style="width: 80%; min-width: 300px; display: block; margin: auto;">
 </p>
 
-This repository accompanies our research paper titled "[Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)." It contains our core simulation module for  generative agents—computational agents that simulate believable human behaviors—and their game environment. Below, we document the steps for setting up the simulation environment on your local machine and for replaying the simulation as a demo animation.
+Данный репозиторий сопровождает нашу научную работу "Генеративные агенты: интерактивные симулякры человеческого поведения" (https://arxiv.org/abs/2304.03442). Он содержит наш основной модуль моделирования генеративных агентов - вычислительных агентов, имитирующих правдоподобное поведение человека, и их игровую среду. Ниже описаны шаги по настройке среды симуляции на локальной машине и воспроизведению симуляции в виде демонстрационной анимации.
 
-## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Isabella_Rodriguez.png" alt="Generative Isabella">   Setting Up the Environment 
-To set up your environment, you will need to generate a `utils.py` file that contains your OpenAI API key and download the necessary packages.
+## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Isabella_Rodriguez.png" alt="Generative Isabella">   Настройка среды 
+Для настройки среды необходимо сгенерировать файл `utils.py`, содержащий ваш ключ OpenAI API, и загрузить необходимые пакеты.
 
 ### Step 1. Generate Utils File
-In the `reverie/backend_server` folder (where `reverie.py` is located), create a new file titled `utils.py` and copy and paste the content below into the file:
+В папке `reverie/backend_server` (где находится `reverie.py`) создайте новый файл с именем `utils.py` и скопируйте и вставьте в него содержимое, приведенное ниже:
 ```
-# Copy and paste your OpenAI API Key
+# Скопируйте и вставьте свой ключ API OpenAI
 openai_api_key = "<Your OpenAI API>"
-# Put your name
+# Поставьте свое имя
 key_owner = "<Name>"
 
 maze_assets_loc = "../../environment/frontend_server/static_dirs/assets"
@@ -31,83 +31,83 @@ collision_block_id = "32125"
 # Verbose 
 debug = True
 ```
-Replace `<Your OpenAI API>` with your OpenAI API key, and `<name>` with your name.
+Замените `<Ваш OpenAI API>` на Ваш ключ OpenAI API, а `<имя>` на Ваше имя.
  
-### Step 2. Install requirements.txt
-Install everything listed in the `requirements.txt` file (I strongly recommend first setting up a virtualenv as usual). A note on Python version: we tested our environment on Python 3.9.12. 
+### Шаг 2. Установите файл `requirements.txt
+Установите все, что перечислено в файле `requirements.txt` (настоятельно рекомендую предварительно настроить virtualenv, как обычно). Примечание по версии Python: мы тестировали нашу среду на Python 3.9.12. 
 
-## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Klaus_Mueller.png" alt="Generative Klaus">   Running a Simulation 
-To run a new simulation, you will need to concurrently start two servers: the environment server and the agent simulation server.
+## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Klaus_Mueller.png" alt="Generative Klaus">   Запуск моделирования 
+Чтобы запустить новую симуляцию, необходимо одновременно запустить два сервера: сервер среды и сервер симуляции агента.
 
-### Step 1. Starting the Environment Server
-Again, the environment is implemented as a Django project, and as such, you will need to start the Django server. To do this, first navigate to `environment/frontend_server` (this is where `manage.py` is located) in your command line. Then run the following command:
+### Шаг 1. Запуск сервера окружения
+Опять же, среда реализована как Django-проект, и поэтому необходимо запустить Django-сервер. Для этого сначала перейдите в командной строке по адресу `environment/frontend_server` (именно там находится файл `manage.py`). Затем выполните следующую команду:
 
     python manage.py runserver
 
-Then, on your favorite browser, go to [http://localhost:8000/](http://localhost:8000/). If you see a message that says, "Your environment server is up and running," your server is running properly. Ensure that the environment server continues to run while you are running the simulation, so keep this command-line tab open! (Note: I recommend using either Chrome or Safari. Firefox might produce some frontend glitches, although it should not interfere with the actual simulation.)
+Затем в своем любимом браузере перейдите по адресу [http://localhost:8000/](http://localhost:8000/). Если вы увидите сообщение "Your environment server is up and running", значит, ваш сервер работает правильно. Убедитесь, что сервер окружения продолжает работать во время выполнения моделирования, поэтому держите эту вкладку командной строки открытой! (Примечание: я рекомендую использовать Chrome или Safari. Firefox может давать некоторые сбои во внешнем интерфейсе, но это не должно мешать реальному моделированию).
 
-### Step 2. Starting the Simulation Server
-Open up another command line (the one you used in Step 1 should still be running the environment server, so leave that as it is). Navigate to `reverie/backend_server` and run `reverie.py`.
+### Шаг 2. Запуск сервера моделирования
+Откройте другую командную строку (та, которую вы использовали в шаге 1, должна по-прежнему запускать сервер окружения, поэтому оставьте ее как есть). Перейдите по адресу `reverie/backend_server` и запустите файл `reverie.py`.
 
     python reverie.py
-This will start the simulation server. A command-line prompt will appear, asking the following: "Enter the name of the forked simulation: ". To start a 3-agent simulation with Isabella Rodriguez, Maria Lopez, and Klaus Mueller, type the following:
+Это приведет к запуску сервера моделирования. Появится приглашение командной строки с запросом: "Введите имя развиваемой симуляции: ". Чтобы запустить трехагентную симуляцию с Изабеллой Родригес, Марией Лопес и Клаусом Мюллером, введите следующее:
     
     base_the_ville_isabella_maria_klaus
-The prompt will then ask, "Enter the name of the new simulation: ". Type any name to denote your current simulation (e.g., just "test-simulation" will do for now).
+Затем появится запрос: "Введите имя новой симуляции: ". Введите любое имя, обозначающее текущую симуляцию (например, пока подойдет просто "test-simulation").
 
     test-simulation
-Keep the simulator server running. At this stage, it will display the following prompt: "Enter option: "
+Продолжайте работу сервера симулятора. На этом этапе он выдаст следующее приглашение: "Введите опцию: "
 
-### Step 3. Running and Saving the Simulation
-On your browser, navigate to [http://localhost:8000/simulator_home](http://localhost:8000/simulator_home). You should see the map of Smallville, along with a list of active agents on the map. You can move around the map using your keyboard arrows. Please keep this tab open. To run the simulation, type the following command in your simulation server in response to the prompt, "Enter option":
+### Шаг 3. Запуск и сохранение моделирования
+В браузере перейдите по адресу [http://localhost:8000/simulator_home](http://localhost:8000/simulator_home). Вы должны увидеть карту Смолвиля, а также список активных агентов на карте. Перемещаться по карте можно с помощью стрелок клавиатуры. Пожалуйста, держите эту вкладку открытой. Для запуска симуляции введите на сервере симуляции следующую команду в ответ на запрос "Введите опцию":
 
     run <step-count>
-Note that you will want to replace `<step-count>` above with an integer indicating the number of game steps you want to simulate. For instance, if you want to simulate 100 game steps, you should input `run 100`. One game step represents 10 seconds in the game.
+Обратите внимание на то, что вместо `<step-count>` необходимо ввести целое число, обозначающее количество игровых шагов, которые необходимо смоделировать. Например, если требуется смоделировать 100 игровых шагов, то следует ввести `run 100`. Один игровой шаг равен 10 секундам в игре.
 
 
-Your simulation should be running, and you will see the agents moving on the map in your browser. Once the simulation finishes running, the "Enter option" prompt will re-appear. At this point, you can simulate more steps by re-entering the run command with your desired game steps, exit the simulation without saving by typing `exit`, or save and exit by typing `fin`.
+Симуляция должна быть запущена, и вы увидите, как агенты перемещаются по карте в браузере. После завершения работы симуляции снова появится запрос "Ввод опции". В этот момент можно выполнить дополнительные шаги, повторно введя команду run с желаемыми шагами игры, выйти из симуляции без сохранения, набрав `exit`, или сохранить и выйти, набрав `fin`.
 
-The saved simulation can be accessed the next time you run the simulation server by providing the name of your simulation as the forked simulation. This will allow you to restart your simulation from the point where you left off.
+К сохраненной симуляции можно получить доступ при следующем запуске сервера симуляций, указав имя симуляции в качестве имени развилки. Это позволит запустить симуляцию с того места, на котором вы остановились.
 
-### Step 4. Replaying a Simulation
-You can replay a simulation that you have already run simply by having your environment server running and navigating to the following address in your browser: `http://localhost:8000/replay/<simulation-name>/<starting-time-step>`. Please make sure to replace `<simulation-name>` with the name of the simulation you want to replay, and `<starting-time-step>` with the integer time-step from which you wish to start the replay.
+### Шаг 4. Воспроизведение моделирования
+Для воспроизведения уже запущенной симуляции достаточно иметь запущенный сервер окружения и перейти в браузере по следующему адресу: `http://localhost:8000/replay/<simulation-name>/<starting-time-step>`. Пожалуйста, замените `<simulation-name>` на имя симуляции, которую вы хотите воспроизвести, а `<starting-time-step>` на целочисленный временной шаг, с которого вы хотите начать воспроизведение.
 
-For instance, by visiting the following link, you will initiate a pre-simulated example, starting at time-step 1:  
+Например, перейдя по следующей ссылке, вы запустите предварительно смоделированный пример, начиная с временного шага 1:  
 [http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/](http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/)
 
-### Step 5. Demoing a Simulation
-You may have noticed that all character sprites in the replay look identical. We would like to clarify that the replay function is primarily intended for debugging purposes and does not prioritize optimizing the size of the simulation folder or the visuals. To properly demonstrate a simulation with appropriate character sprites, you will need to compress the simulation first. To do this, open the `compress_sim_storage.py` file located in the `reverie` directory using a text editor. Then, execute the `compress` function with the name of the target simulation as its input. By doing so, the simulation file will be compressed, making it ready for demonstration.
+### Шаг 5. Демонстрация симуляции
+Вы могли заметить, что все спрайты персонажей в реплее выглядят одинаково. Хотелось бы пояснить, что функция повтора предназначена в первую очередь для отладки и не ставит своей приоритетной задачей оптимизацию размера папки с симуляцией или визуального оформления. Чтобы правильно продемонстрировать симуляцию с соответствующими спрайтами персонажей, необходимо сначала сжать симуляцию. Для этого откройте текстовым редактором файл `compress_sim_storage.py`, расположенный в каталоге `reverie`. Затем выполните функцию `compress`, указав в качестве входных данных имя целевой симуляции. В результате файл симуляции будет сжат и готов к демонстрации.
 
-To start the demo, go to the following address on your browser: `http://localhost:8000/demo/<simulation-name>/<starting-time-step>/<simulation-speed>`. Note that `<simulation-name>` and `<starting-time-step>` denote the same things as mentioned above. `<simulation-speed>` can be set to control the demo speed, where 1 is the slowest, and 5 is the fastest. For instance, visiting the following link will start a pre-simulated example, beginning at time-step 1, with a medium demo speed:  
+Для запуска демонстрации перейдите в браузере по следующему адресу: `http://localhost:8000/demo/<simulation-name>/<starting-time-step>/<simulation-speed>`. Обратите внимание, что `<simulation-name>` и `<starting-time-step>` обозначают одно и то же, как было сказано выше. `<simulation-speed>` может быть задана для управления скоростью демонстрации, где 1 - самая медленная, а 5 - самая быстрая. Например, при переходе по следующей ссылке будет запущен предварительно смоделированный пример, начинающийся с шага 1, со средней скоростью демонстрации:  
 [http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/](http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/)
 
-### Tips
-We've noticed that OpenAI's API can hang when it reaches the hourly rate limit. When this happens, you may need to restart your simulation. For now, we recommend saving your simulation often as you progress to ensure that you lose as little of the simulation as possible when you do need to stop and rerun it. Running these simulations, at least as of early 2023, could be somewhat costly, especially when there are many agents in the environment.
+### Советы
+Мы заметили, что API OpenAI может зависать при достижении лимита почасовой скорости. В этом случае может потребоваться перезапуск симуляции. На данный момент мы рекомендуем часто сохранять симуляцию по мере ее выполнения, чтобы в случае необходимости остановить и запустить ее заново, как можно меньше потерять. Запуск таких симуляций, по крайней мере, в начале 2023 года, может быть несколько дорогостоящим, особенно при наличии большого количества агентов в среде.
 
-## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Maria_Lopez.png" alt="Generative Maria">   Simulation Storage Location
-All simulations that you save will be located in `environment/frontend_server/storage`, and all compressed demos will be located in `environment/frontend_server/compressed_storage`. 
+## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Maria_Lopez.png" alt="Generative Maria">   Расположение хранилища симуляций
+Все сохраняемые симуляции будут находиться в каталоге `environment/frontend_server/storage`, а все сжатые демо-версии - в каталоге `environment/frontend_server/compressed_storage`. 
 
 ## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Sam_Moore.png" alt="Generative Sam">   Customization
 
-There are two ways to optionally customize your simulations. 
+Существует два способа дополнительной настройки имитационных моделей. 
 
-### Author and Load Agent History
-First is to initialize agents with unique history at the start of the simulation. To do this, you would want to 1) start your simulation using one of the base simulations, and 2) author and load agent history. More specifically, here are the steps:
+### Автор и загрузка истории агентов
+Во-первых, в начале моделирования необходимо инициализировать агентов с уникальной историей. Для этого необходимо: 1) начать симуляцию, используя одну из базовых симуляций, и 2) создать и загрузить историю агентов. Более конкретно, вот шаги:
 
-#### Step 1. Starting Up a Base Simulation 
-There are two base simulations included in the repository: `base_the_ville_n25` with 25 agents, and `base_the_ville_isabella_maria_klaus` with 3 agents. Load one of the base simulations by following the steps until step 2 above. 
+#### Шаг 1. Запуск базовой симуляции 
+В репозиторий включены две базовые симуляции: `base_the_ville_n25` с 25 агентами и `base_the_ville_isabella_maria_klaus` с 3 агентами. Загрузите одну из базовых симуляций, выполнив действия до шага 2 выше. 
 
-#### Step 2. Loading a History File 
-Then, when prompted with "Enter option: ", you should load the agent history by responding with the following command:
+#### Шаг 2. Загрузка файла истории 
+Затем, получив запрос "Enter option: ", необходимо загрузить историю агента, выполнив следующую команду:
 
     call -- load history the_ville/<history_file_name>.csv
-Note that you will need to replace `<history_file_name>` with the name of an existing history file. There are two history files included in the repo as examples: `agent_history_init_n25.csv` for `base_the_ville_n25` and `agent_history_init_n3.csv` for `base_the_ville_isabella_maria_klaus`. These files include semicolon-separated lists of memory records for each of the agents—loading them will insert the memory records into the agents' memory stream.
+Обратите внимание, что необходимо заменить `<имя_файла_истории>` на имя существующего файла истории. В качестве примера в репозиторий включены два файла истории: `agent_history_init_n25.csv` для `base_the_ville_n25` и `agent_history_init_n3.csv` для `base_the_ville_isabella_maria_klaus`. Эти файлы содержат разделенные точкой с запятой списки записей памяти для каждого из агентов - их загрузка приведет к вставке записей памяти в поток памяти агентов.
 
-#### Step 3. Further Customization 
-To customize the initialization by authoring your own history file, place your file in the following folder: `environment/frontend_server/static_dirs/assets/the_ville`. The column format for your custom history file will have to match the example history files included. Therefore, we recommend starting the process by copying and pasting the ones that are already in the repository.
+#### Step 3. Дальнейшая настройка 
+Чтобы настроить инициализацию, создав свой собственный файл истории, поместите его в следующую папку: `environment/frontend_server/static_dirs/assets/the_ville`. Формат столбцов вашего собственного файла истории должен соответствовать приведенным примерам файлов истории. Поэтому мы рекомендуем начать процесс с копирования и вставки тех, которые уже есть в репозитории.
 
-### Create New Base Simulations
-For a more involved customization, you will need to author your own base simulation files. The most straightforward approach would be to copy and paste an existing base simulation folder, renaming and editing it according to your requirements. This process will be simpler if you decide to keep the agent names unchanged. However, if you wish to change their names or increase the number of agents that the Smallville map can accommodate, you might need to directly edit the map using the [Tiled](https://www.mapeditor.org/) map editor.
+### Создание новых базовых симуляций
+Для более сложной настройки необходимо создать собственные файлы базовых симуляций. Наиболее простой подход заключается в копировании и вставке существующей папки с базовыми симуляциями, переименовании и редактировании ее в соответствии с вашими требованиями. Этот процесс будет проще, если вы решите оставить имена агентов без изменений. Однако если вы захотите изменить их имена или увеличить количество агентов на карте Smallville, то, возможно, вам придется напрямую редактировать карту с помощью редактора карт [Tiled](https://www.mapeditor.org/).
 
 
 ## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Eddy_Lin.png" alt="Generative Eddy">   Authors and Citation 
